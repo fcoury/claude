@@ -1,6 +1,6 @@
 ---
 allowed-tools: Bash(mkdir:*), Bash(ls:*), WriteToFile(*), ReadFromFile(*)
-description: Generate comprehensive documentation for a feature (requirements.md, design.md, tasks.md)
+description: Generate comprehensive documentation for a feature and set it as the current active feature
 ---
 
 # Feature Documentation Generator
@@ -10,6 +10,7 @@ description: Generate comprehensive documentation for a feature (requirements.md
 - Current project structure: !`find . -type f -name "*.md" | head -20`
 - Existing documentation: !`ls -la docs/ 2>/dev/null || echo "No docs directory found"`
 - Current git branch: !`git branch --show-current 2>/dev/null || echo "Not in a git repository"`
+- Current active feature: !`cat docs/current-feature.txt 2>/dev/null || echo "No current feature set"`
 
 ## Your Task
 
@@ -117,7 +118,7 @@ Example format:
 ```
 # Implementation Plan
 
-- [x] 1. Set up project structure and core interfaces
+- [ ] 1. Set up project structure and core interfaces
 
   - Create Rust backend project with Cargo.toml dependencies (axum, sqlx, tokio, serde, anyhow, thiserror)
   - Create Next.js frontend project with TypeScript and Tailwind CSS
@@ -125,7 +126,7 @@ Example format:
   - Set up database connection utilities and migration system
   - _Requirements: 3.1, 3.2, 3.3_
 
-- [x] 2. Implement database schema and models
+- [ ] 2. Implement database schema and models
 
   - Create SQLite database schema with tables for users, auth_tokens, emails, links, and sync_status
   - Implement Rust structs with SQLx derive macros for database operations
@@ -142,18 +143,51 @@ Example format:
    mkdir -p docs/03-features/<feature-directory>
    ```
 
-2. **Analyze the feature** and break it down into logical components
+2. **Set this as the current active feature:**
 
-3. **Analyze existing code if applicable** to inform the design and requirements
+   Write the new feature path to `/docs/current-feature.txt`:
 
-4. **Generate each document** following the specified format and structure
+   ```
+   docs/03-features/<feature-directory>
+   ```
 
-5. **Ensure cross-references** between documents are accurate and helpful
+3. **Analyze the feature** and break it down into logical components
 
-6. **Use consistent naming** and numbering throughout all documents
+4. **Analyze existing code if applicable** to inform the design and requirements
 
-7. **Include practical examples** and code snippets where appropriate
+5. **Generate each document** following the specified format and structure
 
-8. **Make sure the documentation is actionable** and provides clear guidance for implementation and acceptance criteria
+6. **Ensure cross-references** between documents are accurate and helpful
 
-The documentation should be comprehensive enough that a developer can understand the full scope of the feature and begin implementation based on the provided specifications.
+7. **Use consistent naming** and numbering throughout all documents
+
+8. **Include practical examples** and code snippets where appropriate
+
+9. **Make sure the documentation is actionable** and provides clear guidance for implementation and acceptance criteria
+
+10. **Create initial commit** for the new feature documentation:
+    ```bash
+    git add docs/03-features/<feature-directory>/ docs/current-feature.txt
+    git commit -m "Initialize feature documentation for <feature-name>"
+    ```
+
+### **Expected Output:**
+
+```
+## Feature Documentation Created
+
+**Feature Directory**: docs/03-features/<feature-directory>
+**Active Feature Set**: Updated /docs/current-feature.txt
+
+**Generated Files**:
+- requirements.md (X requirements defined)
+- design.md (Y components specified)
+- tasks.md (Z tasks planned)
+
+**Next Steps**:
+- Use `task-next` command to begin implementation
+- Review and refine requirements as needed
+- Start with the first task in the implementation plan
+```
+
+The documentation should be comprehensive enough that a developer can understand the full scope of the feature and begin implementation based on the provided specifications. After running this command, the new feature will be set as the active feature and ready for task management with the `task-next` command.
